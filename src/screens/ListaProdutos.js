@@ -26,6 +26,7 @@ export default function ListaProdutos({ navigation }) {
           const novaLista = produtos.filter((item) => item.id !== id);
           await AsyncStorage.setItem('produtos', JSON.stringify(novaLista));
           setProdutos(novaLista);
+          Alert.alert('Sucesso', 'Produto excluído com sucesso!');
         },
       },
     ]);

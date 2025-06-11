@@ -6,13 +6,16 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import HomeScreen from '../screens/HomeScreen';
 import ListaProdutos from '../screens/ListaProdutos';
 import ProdutoForm from '../screens/ProdutoForm';
+import ListaClientes from '../screens/ListaClientes';
+import ClienteForm from '../screens/ClienteForm';
+import ListaFornecedores from '../screens/ListaFornecedores';
+import FornecedorForm from '../screens/FornecedorForm';
 import CategoriasExternas from '../screens/CategoriasExternas';
 import ProdutosPorCategoria from '../screens/ProdutosPorCategoria';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-// ✅ Stack para CRUD de produtos internos
 function ProdutosStack() {
   return (
     <Stack.Navigator>
@@ -22,31 +25,41 @@ function ProdutosStack() {
   );
 }
 
-// ✅ Stack para navegação entre categorias e produtos externos
-function ExternosStack() {
+function ClientesStack() {
   return (
     <Stack.Navigator>
-      <Stack.Screen
-        name="Categorias"
-        component={CategoriasExternas}
-        options={{ title: 'Categorias de Roupas' }}
-      />
-      <Stack.Screen
-        name="ProdutosPorCategoria"
-        component={ProdutosPorCategoria}
-        options={({ route }) => ({ title: route.params.categoryName })}
-      />
+      <Stack.Screen name="ListaClientes" component={ListaClientes} options={{ title: 'Clientes' }} />
+      <Stack.Screen name="ClienteForm" component={ClienteForm} options={{ title: 'Cadastrar/Editar Cliente' }} />
     </Stack.Navigator>
   );
 }
 
-// ✅ Navegação principal com abas
+function FornecedoresStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="ListaFornecedores" component={ListaFornecedores} options={{ title: 'Fornecedores' }} />
+      <Stack.Screen name="FornecedorForm" component={FornecedorForm} options={{ title: 'Cadastrar/Editar Fornecedor' }} />
+    </Stack.Navigator>
+  );
+}
+
+function ExternosStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Categorias" component={CategoriasExternas} />
+      <Stack.Screen name="ProdutosPorCategoria" component={ProdutosPorCategoria} />
+    </Stack.Navigator>
+  );
+}
+
 export default function MainNavigator() {
   return (
     <NavigationContainer>
       <Tab.Navigator>
         <Tab.Screen name="Início" component={HomeScreen} />
         <Tab.Screen name="Produtos" component={ProdutosStack} options={{ headerShown: false }} />
+        <Tab.Screen name="Clientes" component={ClientesStack} options={{ headerShown: false }} />
+        <Tab.Screen name="Fornecedores" component={FornecedoresStack} options={{ headerShown: false }} />
         <Tab.Screen name="Externos" component={ExternosStack} options={{ headerShown: false }} />
       </Tab.Navigator>
     </NavigationContainer>
